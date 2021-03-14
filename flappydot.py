@@ -54,7 +54,6 @@ class FlappyGame(GameApp):
         self.dot.start()
         self.dot.jump()
 
-
     def game_over(self):
         self.dot.is_started = False
         self.dot.y = CANVAS_HEIGHT // 2
