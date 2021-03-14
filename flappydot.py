@@ -9,6 +9,7 @@ UPDATE_DELAY = 33
 GRAVITY = 2.5
 STARTING_VELOCITY = -30
 PILLAR_SPEED = -3
+JUMP_VELOCITY = -20
 
 class Dot(Sprite):
     def init_element(self):
@@ -22,6 +23,9 @@ class Dot(Sprite):
             
     def start(self):
         self.is_started = True
+    
+    def jump(self):
+        self.vu = JUMP_VELOCITY
 
 class FlappyGame(GameApp):
     def create_sprites(self):
@@ -42,7 +46,12 @@ class FlappyGame(GameApp):
         pass
 
     def on_key_pressed(self, event):
-        pass
+        if self.dot.is_started is False:
+            self.dot.start()
+        else:
+            self.dot.jump()
+            self.dot.vy = self.dot.vu
+
 
 class PillarPair(Sprite):
     def update(self):
@@ -50,7 +59,7 @@ class PillarPair(Sprite):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.title("Monkey Banana Game")
+    root.title("Flappy Dot")
  
     # do not allow window resizing
     root.resizable(False, False)
