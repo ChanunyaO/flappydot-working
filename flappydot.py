@@ -31,6 +31,7 @@ class Dot(Sprite):
         if self.y > CANVAS_HEIGHT or self.y < 0:
             return True
         return False
+
 class FlappyGame(GameApp):
     def create_sprites(self):
         self.dot = Dot(self, 'images/dot.png', CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
@@ -51,12 +52,13 @@ class FlappyGame(GameApp):
            self.game_over()
 
     def on_key_pressed(self, event):
-        self.dot.start()
+        if self.dot.is_started == False:
+            self.dot.start()
+            self.dot.y = CANVAS_HEIGHT // 2
         self.dot.jump()
 
     def game_over(self):
         self.dot.is_started = False
-        self.dot.y = CANVAS_HEIGHT // 2
 
 class PillarPair(Sprite):
     def update(self):
